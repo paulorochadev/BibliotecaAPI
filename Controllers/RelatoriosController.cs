@@ -1,7 +1,9 @@
 ﻿using BibliotecaAPI.Models.DTOs;
 using BibliotecaAPI.Repositories;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BibliotecaAPI.Controllers
 {
@@ -12,12 +14,12 @@ namespace BibliotecaAPI.Controllers
     [ApiController]
     public class RelatoriosController : ControllerBase
     {
-        private readonly BibliotecaContext _context;
+        private readonly IDbConnection _connection;
         private readonly ILogger<RelatoriosController> _logger;
 
-        public RelatoriosController(BibliotecaContext context, ILogger<RelatoriosController> logger)
+        public RelatoriosController(IDbConnection connection, ILogger<RelatoriosController> logger)
         {
-            _context = context;
+            _connection = connection;
             _logger = logger;
         }
 
@@ -36,11 +38,10 @@ namespace BibliotecaAPI.Controllers
             {
                 _logger.LogInformation("Iniciando geração do relatório de livros por autor");
 
-                var result = await _context.RelatorioLivrosPorAutor
-                    .AsNoTracking()
-                    .ToListAsync();
+                var query = "SELECT * FROM vw_RelatorioLivrosPorAutor";
+                var result = await _connection.QueryAsync<RelatorioLivrosPorAutorDTO>(query);
 
-                _logger.LogInformation($"Relatório gerado com {result.Count} registros");
+                _logger.LogInformation($"Relatório gerado com {result.Count()} registros");
 
                 return Ok(result);
             }
