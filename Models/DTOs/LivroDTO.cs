@@ -7,7 +7,8 @@
         public string Editora { get; set; }
         public int Edicao { get; set; }
         public string AnoPublicacao { get; set; }
-        public List<AutorDTO> Autores { get; set; }
-        public List<AssuntoDTO> Assuntos { get; set; }
+        public List<AutorDTO> Autores { get; set; } = new();
+        public List<AssuntoDTO> Assuntos { get; set; } = new();
+        public List<PrecoLivroDTO> Precos { get; set; } = new();
     }
 }

@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public int LivroId { get; set; }
         public decimal Valor { get; set; }
-        public string TipoCompra { get; set; }
+        public int TipoCompraId { get; set; }
+        public string TipoCompraDescricao { get; set; } = string.Empty;
     }
 }
