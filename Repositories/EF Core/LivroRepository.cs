@@ -15,50 +15,48 @@ namespace BibliotecaAPI.Repositories.Implementations
 
         public async Task<IEnumerable<Livro>> GetAllAsync()
         {
-            return await _context.Livros
+            return await _context.Livro
                 .Include(l => l.Autores)
-                .ThenInclude(la => la.Autor)
+                    .ThenInclude(la => la.Autor)
                 .Include(l => l.Assuntos)
-                .ThenInclude(la => la.Assunto)
+                    .ThenInclude(la => la.Assunto)
                 .Include(l => l.Precos)
+                    .ThenInclude(p => p.TipoCompra)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<Livro?> GetByIdAsync(int id)
         {
-            return await _context.Livros
+            return await _context.Livro
                 .Include(l => l.Autores)
-                .ThenInclude(la => la.Autor)
+                    .ThenInclude(la => la.Autor)
                 .Include(l => l.Assuntos)
-                .ThenInclude(la => la.Assunto)
+                    .ThenInclude(la => la.Assunto)
                 .Include(l => l.Precos)
+                    .ThenInclude(p => p.TipoCompra)
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task<Livro> CreateAsync(Livro livro)
         {
-            _context.Livros.Add(livro);
-
+            _context.Livro.Add(livro);
             await _context.SaveChangesAsync();
-
             return livro;
         }
 
         public async Task UpdateAsync(Livro livro)
         {
             _context.Entry(livro).State = EntityState.Modified;
-
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var livro = await _context.Livros.FindAsync(id);
-
+            var livro = await _context.Livro.FindAsync(id);
             if (livro != null)
             {
-                _context.Livros.Remove(livro);
-
+                _context.Livro.Remove(livro);
                 await _context.SaveChangesAsync();
             }
         }

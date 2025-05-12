@@ -15,17 +15,17 @@ namespace BibliotecaAPI.Repositories.Implementations
 
         public async Task<IEnumerable<Assunto>> GetAllAsync()
         {
-            return await _context.Assuntos.ToListAsync();
+            return await _context.Assunto.ToListAsync();
         }
 
         public async Task<Assunto?> GetByIdAsync(int id)
         {
-            return await _context.Assuntos.FindAsync(id);
+            return await _context.Assunto.FindAsync(id);
         }
 
         public async Task<Assunto> CreateAsync(Assunto assunto)
         {
-            _context.Assuntos.Add(assunto);
+            _context.Assunto.Add(assunto);
 
             await _context.SaveChangesAsync();
 
@@ -41,11 +41,11 @@ namespace BibliotecaAPI.Repositories.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var assunto = await _context.Assuntos.FindAsync(id);
+            var assunto = await _context.Assunto.FindAsync(id);
 
             if (assunto != null)
             {
-                _context.Assuntos.Remove(assunto);
+                _context.Assunto.Remove(assunto);
 
                 await _context.SaveChangesAsync();
             }

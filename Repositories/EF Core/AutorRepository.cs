@@ -15,17 +15,17 @@ namespace BibliotecaAPI.Repositories.Implementations
 
         public async Task<IEnumerable<Autor>> GetAllAsync()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Autor.ToListAsync();
         }
 
         public async Task<Autor?> GetByIdAsync(int id)
         {
-            return await _context.Autores.FindAsync(id);
+            return await _context.Autor.FindAsync(id);
         }
 
         public async Task<Autor> CreateAsync(Autor autor)
         {
-            _context.Autores.Add(autor);
+            _context.Autor.Add(autor);
 
             await _context.SaveChangesAsync();
 
@@ -41,11 +41,11 @@ namespace BibliotecaAPI.Repositories.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var autor = await _context.Autores.FindAsync(id);
+            var autor = await _context.Autor.FindAsync(id);
 
             if (autor != null)
             {
-                _context.Autores.Remove(autor);
+                _context.Autor.Remove(autor);
 
                 await _context.SaveChangesAsync();
             }
