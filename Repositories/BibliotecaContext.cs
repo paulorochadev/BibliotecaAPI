@@ -1,4 +1,5 @@
-﻿using BibliotecaAPI.Models.Entities;
+﻿using BibliotecaAPI.Models.DTOs;
+using BibliotecaAPI.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaAPI.Repositories
@@ -16,6 +17,9 @@ namespace BibliotecaAPI.Repositories
         public DbSet<LivroAutor> LivroAutores { get; set; }
         public DbSet<LivroAssunto> LivroAssuntos { get; set; }
         public DbSet<PrecoLivro> PrecosLivros { get; set; }
+
+        // DbSet para view de relatório
+        public DbSet<RelatorioLivrosPorAutorDTO> RelatorioLivrosPorAutor { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -71,6 +75,11 @@ namespace BibliotecaAPI.Repositories
             modelBuilder.Entity<PrecoLivro>()
                 .Property(p => p.TipoCompra)
                 .HasMaxLength(20);
+
+            // Configuração da view (entidade sem chave)
+            modelBuilder.Entity<RelatorioLivrosPorAutorDTO>()
+                .HasNoKey()
+                .ToView("vw_RelatorioLivrosPorAutor");
         }
     }
 }
