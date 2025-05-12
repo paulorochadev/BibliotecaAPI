@@ -34,6 +34,17 @@ namespace BibliotecaAPI.Services.Implementations
         public async Task<LivroDTO> CreateLivroAsync(LivroDTO livroDto)
         {
             var livro = _mapper.Map<Livro>(livroDto);
+
+            // Tratar relacionamentos
+            if (livroDto.Autores?.Any() == true)
+            {
+                livro.Autores = livroDto.Autores.Select(a => new LivroAutor
+                {
+                    LivroId = livro.Id,
+                    AutorId = a.Id
+                }).ToList();
+            }
+
             var createdLivro = await _livroRepository.CreateAsync(livro);
 
             return _mapper.Map<LivroDTO>(createdLivro);
