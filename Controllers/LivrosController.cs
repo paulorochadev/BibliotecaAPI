@@ -63,7 +63,7 @@ namespace BibliotecaAPI.Controllers
                 return NotFound();
             }
 
-            return livro;
+            return Ok(livro);
         }
 
         /// <summary>
