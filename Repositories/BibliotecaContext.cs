@@ -15,6 +15,7 @@ namespace BibliotecaAPI.Repositories
         public DbSet<Assunto> Assuntos { get; set; }
         public DbSet<LivroAutor> LivroAutores { get; set; }
         public DbSet<LivroAssunto> LivroAssuntos { get; set; }
+        public DbSet<PrecoLivro> PrecosLivros { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,6 +66,10 @@ namespace BibliotecaAPI.Repositories
 
             modelBuilder.Entity<Assunto>()
                 .Property(a => a.Descricao)
+                .HasMaxLength(20);
+
+            modelBuilder.Entity<PrecoLivro>()
+                .Property(p => p.TipoCompra)
                 .HasMaxLength(20);
         }
     }
