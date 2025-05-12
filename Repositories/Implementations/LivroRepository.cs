@@ -20,6 +20,7 @@ namespace BibliotecaAPI.Repositories.Implementations
                 .ThenInclude(la => la.Autor)
                 .Include(l => l.Assuntos)
                 .ThenInclude(la => la.Assunto)
+                .Include(l => l.Precos)
                 .ToListAsync();
         }
 
@@ -30,6 +31,7 @@ namespace BibliotecaAPI.Repositories.Implementations
                 .ThenInclude(la => la.Autor)
                 .Include(l => l.Assuntos)
                 .ThenInclude(la => la.Assunto)
+                .Include(l => l.Precos)
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 
