@@ -33,5 +33,8 @@ namespace BibliotecaAPI.Models.Entities
         
         // Relacionamento N-N com Assunto
         public ICollection<LivroAssunto> Assuntos { get; set; }
+
+        // Relacionamento 1-N com PrecoLivro
+        public ICollection<PrecoLivro> Precos { get; set; }
     }
 }
