@@ -1,6 +1,8 @@
 using BibliotecaAPI.Repositories;
 using BibliotecaAPI.Repositories.Implementations;
 using BibliotecaAPI.Repositories.Interfaces;
+using BibliotecaAPI.Services.Implementations;
+using BibliotecaAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,10 +21,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<BibliotecaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BibliotecaConnection")));
 
-// Configuração de repositórios e serviços
+// Configuração do Repositories
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
 builder.Services.AddScoped<IAutorRepository, AutorRepository>();
 builder.Services.AddScoped<IAssuntoRepository, AssuntoRepository>();
+
+// Configuração do Services
+builder.Services.AddScoped<ILivroService, LivroService>();
 
 // Configuração do CORS
 builder.Services.AddCors(options =>
@@ -30,12 +35,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularOrigins",
     builder =>
     {
-        builder.WithOrigins(
-                            "http://localhost:4200",
-                            "https://localhost:4200"
-                            )
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
+        builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
     });
 });
 
