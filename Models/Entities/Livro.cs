@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BibliotecaAPI.Models.Entities
 {
+    [Table("Livro")]
     public class Livro
     {
         [Key]
@@ -30,7 +31,7 @@ namespace BibliotecaAPI.Models.Entities
 
         // Relacionamento N-N com Autor
         public ICollection<LivroAutor> Autores { get; set; }
-        
+
         // Relacionamento N-N com Assunto
         public ICollection<LivroAssunto> Assuntos { get; set; }
 

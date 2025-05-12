@@ -3,23 +3,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BibliotecaAPI.Models.Entities
 {
+    [Table("LivroPreco")]
     public class PrecoLivro
     {
         [Key]
+        [Column("Id")]
         public int Id { get; set; }
 
-        [Required]
         [Column("Livro_Codi")]
         public int LivroId { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(10, 2)")]
+        [Column("TipoCompra_Id")]
+        public int TipoCompraId { get; set; }
+
+        [Column("Preco")]
         public decimal Valor { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        public string TipoCompra { get; set; } // "balcao", "self-service", "internet", "evento"
-
+        [ForeignKey("LivroId")]
         public Livro Livro { get; set; }
+
+        [ForeignKey("TipoCompraId")]
+        public TipoCompra TipoCompra { get; set; }
     }
 }
